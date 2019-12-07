@@ -7,7 +7,7 @@ int main() {
     bignum num1;
     bignum num2;
     int caso;
-
+    bignum sum, res, mul, div, fac1, fac2, mod;
     do{
         printf("Introduza o signo do primeiro numero (1 negativo, 0 positivo):\n");
         scanf("%d", &num1.sign);
@@ -41,26 +41,33 @@ int main() {
 
     switch(caso){
         case 1:
-
+            sum = add(num1, num2);
+            printf("O resultado e: \n")
             break;
         case 2:
-
+            res = sub(num1, num2);
+            printf("O resultado e: \n");
             break;
         case 3:
-
+            mul = mult(num1, num2);
+            printf("O resultado e: \n");
             break;
         case 4:
-
+            div = remainder(num1, num2); //mirar si poner num2 o crear otro numero
+            printf("O resultado e: \n");
             break;
         case 5:
-
+            fac1 = fact(num1);
+            printf("O resultado e: \n");
             break;
         case 6:
-
+            fac2 = fact(num2);
             break;
         case 7:
-
+            mod = multmod(num1, num2, ); //falta numero para el modulo
+            printf("O resultado e: \n");
             break;
         default:
             printf("Error, seleccione un numero dos indicados arriba.\n");
     }
+}
