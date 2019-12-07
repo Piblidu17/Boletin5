@@ -42,7 +42,7 @@ int main() {
     switch(caso){
         case 1:
             sum = add(num1, num2);
-            printf("O resultado e: \n")
+            printf("O resultado e: \n");
             break;
         case 2:
             res = sub(num1, num2);
