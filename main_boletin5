@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "Bibliotecas.h"
+
+int main() {
+    bignum num1;
+    bignum num2;
+    int caso;
+
+    do{
+        printf("Introduza o signo do primeiro numero (1 negativo, 0 positivo):\n");
+        scanf("%d", &num1.sign);
+    } while( num1.sign != 1 && num1.sign != 0);
+
+    printf("Introduza o primeiro numero:\n");
+    scanf("%d", &num1.val);
+    printf("%d\n", num1.val);
+    num1.tam = sizeof(num1.val);
+    printf("%d\n", num1.tam); //prueba
+
+    do{
+        printf("Introduza o signo do segundo numero (1 negativo, 0 positivo):\n");
+        scanf("%d", &num2.sign);
+    } while( num2.sign != 1 && num2.sign != 0);
+
+    printf("Introduza o segundo numero:\n");
+    scanf("%d", &num1.val);
+    printf("%d\n", num1.val);
+    num2.tam = sizeof(num2.val);
+    printf("%d\n", num2.tam); //prueba
+
+    printf("Pulse 1 para sumar os numeros.\n");
+    printf("Pulse 2 para restar.\n");
+    printf("Pulse 3 para multiplicar.\n");
+    printf("Pulse 4 para devolver o resto da division.\n");
+    printf("Pulse 5 para facer o factorial do primeiro numero.\n");
+    printf("Pulse 6 para facer o factorial do segundo numero.\n");
+    printf("Pulse 7 para achar a multiplicacion dos dous numeros en modulo n.\n");
+    scanf("%d", &caso);
+
+    switch(caso){
+        case 1:
+
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        case 4:
+
+            break;
+        case 5:
+
+            break;
+        case 6:
+
+            break;
+        case 7:
+
+            break;
+        default:
+            printf("Error, seleccione un numero dos indicados arriba.\n");
+    }
