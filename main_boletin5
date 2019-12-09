@@ -4,31 +4,31 @@
 #include "Bibliotecas.h"
 
 int main() {
-    bignum num1;
-    bignum num2;
+    bignum n1;
+    bignum n2;
+    char *num1, *num2;
+    int tam1, tam2;
     int caso;
     bignum sum, res, mul, div, fac1, fac2, mod;
-    do{
-        printf("Introduza o signo do primeiro numero (1 negativo, 0 positivo):\n");
-        scanf("%d", &num1.sign);
-    } while( num1.sign != 1 && num1.sign != 0);
+    bignum n;
 
     printf("Introduza o primeiro numero:\n");
-    scanf("%d", &num1.val);
-    printf("%d\n", num1.val);
-    num1.tam = sizeof(num1.val);
-    printf("%d\n", num1.tam); //prueba
-
-    do{
-        printf("Introduza o signo do segundo numero (1 negativo, 0 positivo):\n");
-        scanf("%d", &num2.sign);
-    } while( num2.sign != 1 && num2.sign != 0);
+    scanf("%s", num1);
 
     printf("Introduza o segundo numero:\n");
-    scanf("%d", &num1.val);
-    printf("%d\n", num1.val);
-    num2.tam = sizeof(num2.val);
-    printf("%d\n", num2.tam); //prueba
+    scanf("%s", num2);
+
+    tam1 = strlen(num1);
+    tam2 = strlen(num2);
+    num1 = (char*)malloc(tam1*sizeof(char));
+    num2 = (char*)malloc(tam2*sizeof(char));
+    n1 = str2bignum(num1);
+    n2 = str2bignum(num2);
+    free(num1);
+    free(num2);
+
+    printf("%d", n1.val);
+    printf("%d", n2.val);
 
     printf("Pulse 1 para sumar os numeros.\n");
     printf("Pulse 2 para restar.\n");
@@ -41,33 +41,34 @@ int main() {
 
     switch(caso){
         case 1:
-            sum = add(num1, num2);
+            sum = add(n1, n2);
             printf("O resultado e: \n");
             break;
         case 2:
-            res = sub(num1, num2);
+            res = sub(n1, n2);
             printf("O resultado e: \n");
             break;
         case 3:
-            mul = mult(num1, num2);
+            mul = mult(n1, n2);
             printf("O resultado e: \n");
             break;
         case 4:
-            div = remainder(num1, num2); //mirar si poner num2 o crear otro numero
+            div = remainder(n1, n2); //mirar si poner num2 o crear otro numero
             printf("O resultado e: \n");
             break;
         case 5:
-            fac1 = fact(num1);
+            fac1 = fact(n1);
             printf("O resultado e: \n");
             break;
         case 6:
-            fac2 = fact(num2);
+            fac2 = fact(n2);
             break;
         case 7:
-            mod = multmod(num1, num2, ); //falta numero para el modulo
+            mod = multmod(n1, n2, n); //falta numero para el modulo
             printf("O resultado e: \n");
             break;
         default:
             printf("Error, seleccione un numero dos indicados arriba.\n");
     }
+    return 0;
 }
