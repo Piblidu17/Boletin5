@@ -12,6 +12,9 @@ int main() {
     bignum sum, res, mul, div, fac1, fac2, mod;
     bignum n;
 
+    num1 = (char*)malloc(tam1*sizeof(char));
+    num2 = (char*)malloc(tam2*sizeof(char));
+
     printf("Introduza o primeiro numero:\n");
     scanf("%s", num1);
 
@@ -20,15 +23,11 @@ int main() {
 
     tam1 = strlen(num1);
     tam2 = strlen(num2);
-    num1 = (char*)malloc(tam1*sizeof(char));
-    num2 = (char*)malloc(tam2*sizeof(char));
+
     n1 = str2bignum(num1);
     n2 = str2bignum(num2);
     free(num1);
     free(num2);
-
-    printf("%d", n1.val);
-    printf("%d", n2.val);
 
     printf("Pulse 1 para sumar os numeros.\n");
     printf("Pulse 2 para restar.\n");
@@ -42,7 +41,7 @@ int main() {
     switch(caso){
         case 1:
             sum = add(n1, n2);
-            printf("O resultado e: \n");
+            printf("O resultado e %d %d: \n", sum.sign, sum.val);
             break;
         case 2:
             res = sub(n1, n2);
