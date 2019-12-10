@@ -45,7 +45,7 @@ int main() {
     result = (int*)malloc(n2*sizeof(int));
     for (i = n1; i >= 0; i--){
         valor = *(cad1 + i) + *(cad2 + i);
-        if (valor > 9){ //we can only use single digits
+        if (valor > 9){ 
              valor -=10; 
             *(result + i) = valor + ac;
             ac = 1;
