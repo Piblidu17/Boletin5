@@ -9,6 +9,7 @@ int main() {
     char *num1, *num2;
     int tam1, tam2;
     int caso;
+    int i;
     bignum sum, res, mul, div, fac1, fac2, mod;
     bignum n;
 
@@ -41,7 +42,16 @@ int main() {
     switch(caso){
         case 1:
             sum = add(n1, n2);
-            printf("O resultado e %d %d: \n", sum.sign, sum.val);
+            if (sum.sign == -1){
+                printf("O resultado e: -");
+            }
+            else{
+                printf("O resultado e: ");
+            }
+            /*printf("%d", *sum.val);*/
+            for (i = 0; i < sum.tam; i++){
+                printf("%d", *(sum.val + i));
+            }
             break;
         case 2:
             res = sub(n1, n2);
@@ -52,7 +62,7 @@ int main() {
             printf("O resultado e: \n");
             break;
         case 4:
-            div = remainder(n1, n2); //mirar si poner num2 o crear otro numero
+            div = remainders(n1, n2); //mirar si poner num2 o crear otro numero
             printf("O resultado e: \n");
             break;
         case 5:
