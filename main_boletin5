@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "Bibliotecas.h"
+
 int main() {
     bignum n1;
     bignum n2;
@@ -45,22 +50,29 @@ int main() {
             break;
         case 3:
             mul = mult(n1, n2);
-            printf("O resultado e: \n");
+            mostrar(mul);
             break;
         case 4:
-            div = remainders(n1, n2); //mirar si poner num2 o crear otro numero
-            printf("O resultado e: \n");
+            div = remainders(n1, n2);
+            if (div.sign == 1){
+                printf("O resultado e: ");
+            }
+            else{
+                printf("O resultado e: -");
+            }
+            printf("%d \n", *div.val);
             break;
         case 5:
             fac1 = fact(n1);
-            printf("O resultado e: \n");
+            mostrar(fac1);
             break;
         case 6:
             fac2 = fact(n2);
+            mostrar(fac2);
             break;
         case 7:
-            mod = multmod(n1, n2, n); //falta numero para el modulo
-            printf("O resultado e: \n");
+            mod = multmod(n1, n2, n);
+            mostrar(mod);
             break;
         default:
             printf("Error, seleccione un numero dos indicados arriba.\n");
