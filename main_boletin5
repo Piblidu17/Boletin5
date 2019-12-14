@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "Bibliotecas.h"
-
 int main() {
     bignum n1;
     bignum n2;
@@ -42,20 +37,11 @@ int main() {
     switch(caso){
         case 1:
             sum = add(n1, n2);
-            if (sum.sign == -1){
-                printf("O resultado e: -");
-            }
-            else{
-                printf("O resultado e: ");
-            }
-            /*printf("%d", *sum.val);*/
-            for (i = 0; i < sum.tam; i++){
-                printf("%d", *(sum.val + i));
-            }
+            mostrar(sum);
             break;
         case 2:
             res = sub(n1, n2);
-            printf("O resultado e: \n");
+            mostrar(res);
             break;
         case 3:
             mul = mult(n1, n2);
