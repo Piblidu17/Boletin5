@@ -13,11 +13,15 @@ void mostrar(bignum a){
     else{
         printf("O resultado e: -");
     }
-    for (i = 0; i <= a.tam; i++){
+    i = 0;
+    while (i <= a.tam){
         printf("%d", *(a.val + i));
+        i++;
     }
 }
 
+//Pre:str es un puntero de tipo de char(una cadena), y la función str2bignum se encarga de convertir una cadena a bignum
+//Post:La función nos acaba devolviendo el bignum ya transformado
 bignum str2bignum(char *str) {        //converte unha cadea a bignum.
     bignum bn;
     int i,j;
@@ -38,6 +42,9 @@ bignum str2bignum(char *str) {        //converte unha cadea a bignum.
 }
 
 
+//Pre:a y b son dos bignum,y add es una función que suma cifra a cifra,empezando de derecha a izquierda,teniendo en cuenta el acarreo
+//y teniendo en cuenta tanto el signo como el tamaño de a y b.LOS NUMEROS DEBEN DE SER DEL MISMO TAMAÑO(100,098)
+//Post:Se devuelve el resultado final tras realizar la suma de a y b(cumpliendo las precondiciones claro está)
 bignum add(bignum a, bignum b){ //devolve a suma de dous enteiros grandes
     int i, j = 0, n1, n2, valor = 0, ac = 0, k;
     int max, min;
@@ -58,19 +65,17 @@ bignum add(bignum a, bignum b){ //devolve a suma de dous enteiros grandes
         result.val = (int*)malloc(n2*sizeof(int));
         k = 0;
         while(*(a.val + k) == *(b.val + k)){
+            if(*(a.val + k) > *(b.val + k)){
+                result.sign = a.sign;
+            }
+            else if(*(b.val + k) > *(a.val + k)){
+                result.sign = b.sign;
+            }
             k++;
         }
-        if(*(a.val + k) > *(b.val + k)){
-            result.sign = a.sign;
-        }
-        else if(*(a.val + k) < *(b.val + k)){
-            result.sign = b.sign;
-        }
+
     }
     for (i = n1 - 1; i >= 0; i--){
-        if (valor >= 10){
-            valor = valor % 10;
-        }
         *(a.val + i) = a.sign * *(a.val + i);
         *(b.val + i) = b.sign * *(b.val + i);
         valor = *(a.val + i) + *(b.val + i);
@@ -86,10 +91,10 @@ bignum add(bignum a, bignum b){ //devolve a suma de dous enteiros grandes
         }
         else if (valor < 0){
             if ((b.sign == -1 && a.sign == 1) || (b.sign == 1 && a.sign == -1)){
-                valor += 10;
+                valor = fabs(valor);
                 valor = valor % 10;
                 *(result.val + i) = valor + ac;
-                ac = -1;
+                ac = 0;
             }
             else{
                 if (i != 0){
@@ -107,28 +112,24 @@ bignum add(bignum a, bignum b){ //devolve a suma de dous enteiros grandes
                 *(result.val + i) = valor + ac;
                 ac = 0;
             }
-            else{
-                if (b.sign = -1 && a.sign == 1){
-                    *(result.val + i) = valor + ac;
-                    ac = 0;
-                }
-                else if (b.sign = 1 && a.sign == -1){
-                    valor -= 10;
-                    valor = fabs(valor);
-                    *(result.val + i) = valor + ac;
-                    ac = -1;
-
-                }
+            if (b.sign == -1){
+                valor -= 10;
+                valor = fabs(valor);
+                *(result.val + i) = valor + ac;
+                ac = -1;
             }
-
+            *(result.val + i) = valor + ac;
+            ac = 0;
         }
-
         *(result.val + i) = fabs(*(result.val + i));
     }
     return result;
 }
 
-
+//Pre:a y b son dos bignum,y sub es una funcion que se encarga de restar cifra a cifra,empezando de derecha a izquierda,teniendo en cuenta el acarreo
+//y teniendo en cuenta tanto el signo como el tamaño de a y b,y se le invierte el signo de b para poder realizar la funcion suma anterior.
+//LOS NUMEROS DEBEN DE SER DEL MISMO TAMAÑO(100,098)
+//Post:Se devuelve el resultado final tras realizar la suma de a y b(cumpliendo las precondiciones claro está)
 bignum sub(bignum a,bignum b){          //resta dous enteiros grandes.
     bignum result;
     if(b.sign == 1){                    // a resta e igual a suma invertindolle o signo ao segundo sumando
@@ -142,6 +143,9 @@ bignum sub(bignum a,bignum b){          //resta dous enteiros grandes.
 }
 
 
+//Pre:a y b son dos bignum, y la función mult que nos devuelve la multiplicación entre a y b
+//Post:La función se encarga de ir sumando los resultados de la multiplicación de a por el número de b*10^p(de derecha a izquierda)
+//p=posición de numero dentro del bignum b
 bignum mult(bignum a,bignum b){        //devolve o produto de dos enteiros grandes
     int i, j, k = 0, n1, n2, ac;
     int *n, *m;
@@ -162,6 +166,7 @@ bignum mult(bignum a,bignum b){        //devolve o produto de dos enteiros grand
     else{
         result.sign = 1;
     }
+
     for(i = n2; i>=0; i--){
         ac = 0;
         for(j = n1; j>=0; j--){
@@ -197,6 +202,8 @@ bignum mult(bignum a,bignum b){        //devolve o produto de dos enteiros grand
 }
 
 
+//Pre:a y b son dos bignum, y remainders es una función que devuelve el resto de la división entera a/b
+//Post:Se devuelve  el valor tras realizar a-b hasta que a<b,y el resultado sería a módulo b
 bignum remainders(bignum a,bignum b){
     //Pre:a y n son dos bignum, y remainders es una función que devuelve el resto de la división entera a/n
     //Post:Se devuelve  el valor tras realizar a-n hasta que a<n,y el resultado sería a módulo n
@@ -226,7 +233,8 @@ bignum remainders(bignum a,bignum b){
     }
 }
 
-
+//Pre:n es un bignum, fact es una función encargada de devolver el factorial de n
+//Post:Se devuelve el valor del productorio de(n-1) hasta llegar al 1
 bignum fact(bignum n){                  //devolve n!.
     bignum un;
     bignum a;
@@ -247,7 +255,7 @@ bignum fact(bignum n){                  //devolve n!.
     }
     b = sub(n,un);
     auxb.val=b.val;
-    a=mult(n,b);
+    a = mult(n,b);
     auxa.val=a.val;
     for(i=0;i<max;i++){
         b=sub(b,un);
@@ -266,5 +274,5 @@ bignum fact(bignum n){                  //devolve n!.
 
 
 bignum multmod(bignum a,bignum b,bignum n){ //devolve a * b módulo n.
-
+    
 }
